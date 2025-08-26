@@ -1,10 +1,12 @@
-/*
-DATA TABLE
-*/
+/**
+ * DATA TABLE
+ * @Giancarlo 
+ */
 
 $(".tablas").DataTable({
 
-    "language": {
+    "language":{
+
         "sProcessing":          "Procesando...",
         "sLengthMenu":          "Mostrar _MENU_ registros",
         "sZeroRecords":         "No se encontraron resultados",
@@ -15,17 +17,21 @@ $(".tablas").DataTable({
         "sInfoPostFix":         "",
         "sSearch":              "Buscar:",
         "sUrl":                 "",
-        "sInfoThousands":       "",
-        "sLoadingRecords":       "Cargando...",
-        "oPaginate": {
+        "sInfoThousands":       ",",
+        "sLoadingRecords":      "Cargando...",
+        "oPaginate":{
         "sFirst":       "Primero",
         "sLast":        "Último",
         "sNext":        "Siguiente",
         "sPrevious":    "Anterior"
         },
-        "oAria": {
-            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        "oAria":{
+            "sSortAscending":   ":Activar para ordenar la columna de manera ascendente",
+            "sSortDescending":   ":Activar para ordenar la columna de manera descendente"
         }
     }
+    
 });
+
+
+

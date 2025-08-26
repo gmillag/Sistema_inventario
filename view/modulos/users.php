@@ -42,63 +42,51 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped tablas">
                   <thead>
                   <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
+                    <th>Nº</th>
+                    <th>Usuario</th>
+                    <th>Nombres completos</th>
+                    <th>Cargo</th>
+                    <th>Dependencia</th>
                   </tr>
                   </thead>
+
                   <tbody>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.5
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5.5</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 6
-                    </td>
-                    <td>Win 98+</td>
-                    <td>6</td>
-                    <td>A</td>
-                  </tr>
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
-                  </tfoot>
+                  
+                  <?php
+                    $item=null;
+                    $valor=null;
+
+                    $usuarios =ControladorUsuarios::ctrMostrarUsuarios($item,$valor);
+
+                    foreach($usuarios as $key=>$valores){
+                      echo "
+                      <tr>
+
+                      <td>".($key+1)."</td>
+                      <td>".$valores["usuario_id"]."</td>
+                      <td>".$valores["nombre_usuario"]."</td>
+                      <td>".$valores["cargo_id"]."</td>
+                      <td>".$valores["dependencia_id"]."</td>                     
+
+
+
+                      </tr>
+                      
+                      
+                      
+                      
+                      ";
+                    }
+
+                  
+                  ?>
+                  
+                </tbody>
+                
+
                 </table>
               </div>
               <!-- /.card-body -->
@@ -122,22 +110,6 @@
 </div>
 <!-- ./wrapper -->
 
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-</script>
+
 </body>
 </html>

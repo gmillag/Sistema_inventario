@@ -6,9 +6,9 @@
   <title>INVENTARIO | NCPP</title>
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="view/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
+  <!-- <div class="preloader flex-column justify-content-center align-items-center">
+  <img class="animation__shake" src="view/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div> -->
   <!-- Preloader -->
 
   <!-- Google Font: Source Sans Pro -->
@@ -33,9 +33,8 @@
   <link rel="stylesheet" href="view/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="view/plugins/summernote/summernote-bs4.min.css">
-  
-<!-- jQuery DEBE ir PRIMERO aquí -->
-<script src="view/plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery DEBE ir PRIMERO aquí -->
+  <script src="view/plugins/jquery/jquery.min.js"></script>
 
   
 </head>
@@ -100,6 +99,8 @@ include 'modulos/footer.php';
 <script src="view/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="view/dist/js/adminlte.js"></script>
+<!-- Plantillas.js App -->
+<script src="view/js/plantilla.js"></script>
 
 </body>
 </html>
