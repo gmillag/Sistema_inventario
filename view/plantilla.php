@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>INVENTARIO | NCPP</title>
 
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="view/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div>
+  <!-- Preloader -->
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -27,42 +33,41 @@
   <link rel="stylesheet" href="view/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="view/plugins/summernote/summernote-bs4.min.css">
+  
+<!-- jQuery DEBE ir PRIMERO aquí -->
+<script src="view/plugins/jquery/jquery.min.js"></script>
+
+  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
 <!-- ./wrapper -->
 <div class="wrapper">
 <?php
-
 include 'modulos/header.php';
-
-
+include 'modulos/menu.php';
 
 if(isset($_GET ["ruta"])){
-  
   if($_GET["ruta"]=="users"){
     include "modulos/".$_GET["ruta"].".php";
   }
-
+}else{
+    include 'modulos/inicio/cajas.php';
 }
-include 'modulos/menu.php';
-include 'modulos/inicio/cajas.php';
+
 include 'modulos/footer.php';
 ?>
-
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="view/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="view/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="view/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
-<!-- Bootstrap 4 -->
-<script src="view/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- DataTables  & Plugins -->
 <script src="view/plugins/datatables/jquery.dataTables.min.js"></script>
@@ -82,7 +87,6 @@ include 'modulos/footer.php';
 <script src="view/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
 <script src="view/plugins/sparklines/sparkline.js"></script>
-
 <!-- jQuery Knob Chart -->
 <script src="view/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
@@ -96,5 +100,6 @@ include 'modulos/footer.php';
 <script src="view/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="view/dist/js/adminlte.js"></script>
+
 </body>
 </html>
