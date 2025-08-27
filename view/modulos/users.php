@@ -46,10 +46,16 @@
                   <thead>
                   <tr>
                     <th>Nº</th>
-                    <th>Usuario</th>
-                    <th>Nombres completos</th>
-                    <th>Cargo</th>
-                    <th>Dependencia</th>
+                    <th>NOMBRES COMPLETOS</th>
+                    <th>USUARIO</th>
+                    <th>DNI</th>
+                    <th>CARGO</th>
+                    <th>DEPENDENCIA</th>
+                    <th>SEDE</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+
+
                   </tr>
                   </thead>
 
@@ -59,17 +65,21 @@
                     $item=null;
                     $valor=null;
 
-                    $usuarios =ControladorUsuarios::ctrMostrarUsuarios($item,$valor);
+                    $usuarios =ControladorUsuarios::ctrMostrarUsuariosConNombres();
 
                     foreach($usuarios as $key=>$valores){
                       echo "
                       <tr>
 
                       <td>".($key+1)."</td>
-                      <td>".$valores["usuario_id"]."</td>
                       <td>".$valores["nombre_usuario"]."</td>
-                      <td>".$valores["cargo_id"]."</td>
-                      <td>".$valores["dependencia_id"]."</td>                     
+                      <td>".$valores["usuario_id"]."</td>
+                      <td>".$valores["dni"]."</td>
+                      <td>".$valores["nombre_cargo"]."</td>
+                      <td>".$valores["nombre_dependencia"]."</td>
+                      <td>".$valores["nombre_sede"]."</td>
+                      <td><button class='btn btn-primary'>Editar</button></td>
+                      <td><button class='btn btn-danger'>Eliminar</button></td>                        
 
 
 

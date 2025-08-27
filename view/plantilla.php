@@ -6,9 +6,9 @@
   <title>INVENTARIO | NCPP</title>
 
   <!-- Preloader -->
-  <!-- <div class="preloader flex-column justify-content-center align-items-center">
+  <div class="preloader flex-column justify-content-center align-items-center">
   <img class="animation__shake" src="view/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div> -->
+  </div>
   <!-- Preloader -->
 
   <!-- Google Font: Source Sans Pro -->

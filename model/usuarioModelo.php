@@ -4,7 +4,7 @@ require_once 'conexion.php';
 
 class ModeloUsuarios{
     public static function mdlMostrarUsuarios($tabla,$item,$valor){
-
+        
         if($item != null){
             
             $stmt = Conexion::conectar()->prepare ("SELECT * FROM $tabla WHERE $item=:$item");
@@ -18,6 +18,10 @@ class ModeloUsuarios{
         }
 
     }
+         
+
+    
+
 
 }
 
