@@ -73,12 +73,13 @@
                       <td>".($key+1)."</td>
                       <td>".$valores["nombre_usuario"]."</td>
                       <td>".$valores["usuario_id"]."</td>
-                      <td>".$valores["dni"]."</td>
+                      <td>".$valores["dni_usuario"]."</td>
                       <td>".$valores["nombre_cargo"]."</td>
                       <td>".$valores["nombre_dependencia"]."</td>
                       <td>".$valores["nombre_sede"]."</td>
                       <td><button class='btn btn-primary'>Editar</button></td>
-                      <td><button class='btn btn-danger'>Eliminar</button></td>                        
+                      <td><button class='btn btn-danger'>Eliminar</button></td>
+                                           
 
 
 
@@ -116,11 +117,10 @@
   </aside>
   <!-- /.control-sidebar -->
 </div>
-
 <!--  =================================================================================== -->
 
 <!-- Botón para abrir el modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUsuario">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">
   <i class="fas fa-user-plus"></i> Nuevo Usuario
 </button>
 
@@ -129,17 +129,19 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       
-      <!-- Encabezado -->
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalUsuarioLabel"><i class="fas fa-user"></i> Registrar Usuario</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      <!-- Formulario COMPLETO que envuelve todo -->
+      <form id="formUsuario" method="POST" action="">
+        
+        <!-- Encabezado -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalUsuarioLabel"><i class="fas fa-user"></i> Registrar Usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
-      <!-- Cuerpo -->
-      <div class="modal-body">
-        <form id="formUsuario">
+        <!-- Cuerpo -->
+        <div class="modal-body">
           
           <div class="form-row">
             <!-- Usuario -->
@@ -149,7 +151,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese usuario">
+                <input type="text" class="form-control" id="usuario" name="usuario_id" placeholder="Ingrese usuario">
               </div>
             </div>
             
@@ -160,7 +162,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-lock"></i></span>
                 </div>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese contraseña">
+                <input type="password" class="form-control" id="password" name="clave_usuario" placeholder="Ingrese contraseña">
               </div>
             </div>
           </div>
@@ -173,7 +175,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="far fa-id-card"></i></span>
                 </div>
-                <input type="text" class="form-control" id="dni" name="dni" maxlength="8" placeholder="Ingrese DNI">
+                <input type="text" class="form-control" id="dni" name="dni_usuario" maxlength="8" placeholder="Ingrese DNI">
               </div>
             </div>
 
@@ -184,7 +186,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
                 </div>
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese nombres">
+                <input type="text" class="form-control" id="nombre" name="nombre_usuario" placeholder="Ingrese nombres">
               </div>
             </div>
           </div>
@@ -197,7 +199,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" id="apellidoPaterno" name="apellidoPaterno" placeholder="Ingrese apellido paterno">
+                <input type="text" class="form-control" id="apellidoPaterno" name="apellidop_usuario" placeholder="Ingrese apellido paterno">
               </div>
             </div>
 
@@ -208,7 +210,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" id="apellidoMaterno" name="apellidoMaterno" placeholder="Ingrese apellido materno">
+                <input type="text" class="form-control" id="apellidoMaterno" name="apellidom_usuario" placeholder="Ingrese apellido materno">
               </div>
             </div>
           </div>
@@ -221,7 +223,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                 </div>
-                <input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@correo.com">
+                <input type="email" class="form-control" id="email" name="email_usuario" placeholder="ejemplo@correo.com">
               </div>
             </div>
 
@@ -232,7 +234,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-phone"></i></span>
                 </div>
-                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese teléfono">
+                <input type="text" class="form-control" id="telefono" name="telf_usuario" placeholder="Ingrese teléfono">
               </div>
             </div>
           </div>
@@ -245,27 +247,11 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
                 </div>
-                <select class="form-control" id="cargo" name="cargo">
+                <select class="form-control" id="cargo" name="cargo_id">
                   <option value="">Seleccione un cargo</option>
-                  <option value="1">Administrador</option>
+                  <option value="1">1</option>
                   <option value="2">Operador</option>
                   <option value="3">Soporte</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- Sede -->
-            <div class="form-group col-md-6">
-              <label for="sede">Sede</label>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                </div>
-                <select class="form-control" id="sede" name="sede">
-                  <option value="">Seleccione una sede</option>
-                  <option value="1">Lima</option>
-                  <option value="2">Cañete</option>
-                  <option value="3">Barranca</option>
                 </select>
               </div>
             </div>
@@ -279,9 +265,9 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-building"></i></span>
                 </div>
-                <select class="form-control" id="dependencia" name="dependencia">
+                <select class="form-control" id="dependencia" name="dependencia_id">
                   <option value="">Seleccione una dependencia</option>
-                  <option value="1">Recursos Humanos</option>
+                  <option value="1">1</option>
                   <option value="2">Informática</option>
                   <option value="3">Contabilidad</option>
                 </select>
@@ -289,14 +275,25 @@
             </div>
           </div>
 
-        </form>
-      </div>
+        </div> <!-- Cierre del modal-body -->
 
-      <!-- Footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
-        <button type="submit" form="formUsuario" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
-      </div>
+        <!-- Footer DENTRO del formulario -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fas fa-times"></i> Cerrar
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Guardar
+          </button>
+        </div>      
+      </form> <!-- Cierre del formulario -->
+
+      <?php
+
+      $crearUsuarios = new ControladorUsuarios();
+      $crearUsuarios->ctrCrearUsuarios();
+
+      ?>
 
     </div>
   </div>

@@ -1,0 +1,14 @@
+[2025-09-01 04:20:43] ===== Iniciando procesamiento de users.php =====
+[2025-09-01 04:20:43] No es POST -> no se procesa formulario
+[2025-09-01 04:20:43] ===== Iniciando procesamiento de users.php =====
+[2025-09-01 04:20:43] No es POST -> no se procesa formulario
+[2025-09-01 04:20:44] ===== Iniciando procesamiento de users.php =====
+[2025-09-01 04:20:44] No es POST -> no se procesa formulario
+[2025-09-01 04:20:48] ===== Iniciando procesamiento de users.php =====
+[2025-09-01 04:20:48] No es POST -> no se procesa formulario
+[2025-09-01 04:21:14] ===== Iniciando procesamiento de users.php =====
+[2025-09-01 04:21:14] Request es POST
+[2025-09-01 04:21:14] usuario_id recibido: dmontalvosess
+[2025-09-01 04:21:14] Incluyendo controlador...
+[2025-09-01 04:21:14] Archivo usuarioControlador.php incluido
+[2025-09-01 04:21:14] Ejecutando ctrCrearUsuarios...

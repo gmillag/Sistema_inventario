@@ -2,7 +2,37 @@
 
 class ControladorUsuarios{
 
-    // Método original (para compatibilidad)
+static public function ctrCrearUsuarios(){
+    if (isset($_POST['usuario_id'])){
+        
+        $tabla = "usuario";  // ← Variable asignada
+        
+        $encriptar = password_hash($_POST["clave_usuario"], PASSWORD_DEFAULT);
+
+        $datos = array(
+            'usuario_id' => $_POST['usuario_id'],
+            'nombre_usuario' => $_POST['nombre_usuario'],
+            'apellidop_usuario' => $_POST['apellidop_usuario'],
+            'apellidom_usuario' => $_POST['apellidom_usuario'],
+            'dni_usuario' => $_POST['dni_usuario'],
+            'clave_usuario' => $encriptar,
+            'email_usuario' => $_POST['email_usuario'],
+            'telf_usuario' => $_POST['telf_usuario'],
+            'cargo_id' => $_POST['cargo_id'],
+            'dependencia_id' => $_POST['dependencia_id']
+        );
+
+        $respuesta = ModeloUsuarios::mdlGuardarUsuarios($tabla, $datos);
+
+        if($respuesta == "ok"){
+            echo "Usuario registrado";
+        } else {
+            echo "ERROR: Usuario no registrado";
+        }
+    }
+}
+
+    // Método original (para compat ibilidad)
     static public function ctrMostrarUsuarios($item, $valor){
         $tabla = "usuario";
         $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla, $item, $valor);
