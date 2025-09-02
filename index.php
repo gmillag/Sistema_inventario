@@ -7,6 +7,8 @@ require_once 'control/cargo_usuarioControlador.php';
 require_once 'model/cargo_usuarioModelo.php';
 require_once 'control/sedeControlador.php';
 require_once 'model/sedeModelo.php';
+require_once 'control/dependenciaControlador.php';
+require_once 'model/dependenciaModelo.php';
 
 $plantilla = new ControladorPlantilla();
 $plantilla->Plantilla();

@@ -65,6 +65,7 @@
                     $usuarios =ControladorUsuarios::ctrMostrarUsuariosConNombres();
                     $cargoUsuario=ControladorCargo_Usuario::ctrListarCargoUsuario();
                     $sedeCSJCN=ControladorSede::ctrListarSede();
+                    $dependenciaCSJCN=ControladorDependencia::ctrListarDependencia();
 
                     foreach($usuarios as $key=>$valores){
                       echo "
@@ -236,7 +237,7 @@
               <label for="sede">Sede</label>
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span></div>
-                <select class="form-control" id="sede" name="nombre_sede">
+                <select class="form-control" id="sede_id" name="nombre_sede">
                   <option value="">Seleccione una sede</option>
                   <?php foreach($sedeCSJCN as $sede): ?>
                     <option value="<?= $sede['sede_id'];?>"><?= $sede['nombre_sede'];?></option>
@@ -252,11 +253,9 @@
               <label for="dependencia">Dependencia</label>
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-building"></i></span></div>
-                <select class="form-control" id="dependencia" name="dependencia_id">
+                <select class="form-control" id="dependencia_id" name="dependencia_id">
                   <option value="">Seleccione una dependencia</option>
-                  <option value="1">1</option>
-                  <option value="2">Informática</option>
-                  <option value="3">Contabilidad</option>
+ 
                 </select>
               </div>
             </div>

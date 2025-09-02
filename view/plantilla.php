@@ -106,6 +106,7 @@ include 'modulos/footer.php';
 <script src="view/dist/js/adminlte.js"></script>
 <!-- Plantillas.js App -->
 <script src="view/js/plantilla.js"></script>
+<script src="view/js/dependencia.js"></script>
 </body>
 </html>
 
