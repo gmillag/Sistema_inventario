@@ -3,6 +3,7 @@ require_once 'conexion.php';
 
 class ModeloUsuarios{
 
+    // Método que registra nuevos usuarios en la tabla USUARIO
     static public function mdlGuardarUsuarios($tabla, $datos){
 
         // conexion
@@ -67,6 +68,11 @@ class ModeloUsuarios{
 
     }
 
+
+
+
+
+    // Metodo que muestra todos los usuarios de la tabla USUARIO
     public static function mdlMostrarUsuarios($tabla, $item, $valor){
         
         if($item != null){
@@ -85,5 +91,18 @@ class ModeloUsuarios{
 
         return $resultado;
     }
+
+    //Metodo que lista todos los cargos de la tabla USUARIO, apartir de la llave foranea CARGO_ID
+
+    
+
+
+
+
+
+
+
+
+
 }
 ?>

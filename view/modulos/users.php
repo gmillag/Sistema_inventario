@@ -51,10 +51,8 @@
                     <th>CARGO</th>
                     <th>DEPENDENCIA</th>
                     <th>SEDE</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
-
-
+                    <th>EDITAR</th>
+                    <th>ELIMINAR</th>
                   </tr>
                   </thead>
 
@@ -65,6 +63,8 @@
                     $valor=null;
 
                     $usuarios =ControladorUsuarios::ctrMostrarUsuariosConNombres();
+                    $cargoUsuario=ControladorCargo_Usuario::ctrListarCargoUsuario();
+                    $sedeCSJCN=ControladorSede::ctrListarSede();
 
                     foreach($usuarios as $key=>$valores){
                       echo "
@@ -117,8 +117,6 @@
   </aside>
   <!-- /.control-sidebar -->
 </div>
-<!--  =================================================================================== -->
-
 <!-- Botón para abrir el modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">
   <i class="fas fa-user-plus"></i> Nuevo Usuario
@@ -129,13 +127,13 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       
-      <!-- Formulario COMPLETO que envuelve todo -->
+      <!-- Formulario -->
       <form id="formUsuario" method="POST" action="">
         
         <!-- Encabezado -->
-        <div class="modal-header">
+        <div class="modal-header bg-primary text-white">
           <h5 class="modal-title" id="modalUsuarioLabel"><i class="fas fa-user"></i> Registrar Usuario</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Cerrar">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -143,128 +141,117 @@
         <!-- Cuerpo -->
         <div class="modal-body">
           
+          <!-- Primera fila -->
           <div class="form-row">
-            <!-- Usuario -->
             <div class="form-group col-md-6">
               <label for="usuario">Usuario</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                </div>
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
                 <input type="text" class="form-control" id="usuario" name="usuario_id" placeholder="Ingrese usuario">
               </div>
             </div>
-            
-            <!-- Contraseña -->
+
             <div class="form-group col-md-6">
               <label for="password">Contraseña</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                </div>
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-lock"></i></span></div>
                 <input type="password" class="form-control" id="password" name="clave_usuario" placeholder="Ingrese contraseña">
               </div>
             </div>
           </div>
 
+          <!-- Segunda fila -->
           <div class="form-row">
-            <!-- DNI -->
             <div class="form-group col-md-4">
               <label for="dni">DNI</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="far fa-id-card"></i></span>
-                </div>
+                <div class="input-group-prepend"><span class="input-group-text"><i class="far fa-id-card"></i></span></div>
                 <input type="text" class="form-control" id="dni" name="dni_usuario" maxlength="8" placeholder="Ingrese DNI">
               </div>
             </div>
 
-            <!-- Nombre -->
             <div class="form-group col-md-8">
               <label for="nombre">Nombres</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
-                </div>
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user-tag"></i></span></div>
                 <input type="text" class="form-control" id="nombre" name="nombre_usuario" placeholder="Ingrese nombres">
               </div>
             </div>
           </div>
 
+          <!-- Apellidos -->
           <div class="form-row">
-            <!-- Apellido Paterno -->
             <div class="form-group col-md-6">
               <label for="apellidoPaterno">Apellido Paterno</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                </div>
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
                 <input type="text" class="form-control" id="apellidoPaterno" name="apellidop_usuario" placeholder="Ingrese apellido paterno">
               </div>
             </div>
 
-            <!-- Apellido Materno -->
             <div class="form-group col-md-6">
               <label for="apellidoMaterno">Apellido Materno</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                </div>
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
                 <input type="text" class="form-control" id="apellidoMaterno" name="apellidom_usuario" placeholder="Ingrese apellido materno">
               </div>
             </div>
           </div>
 
+          <!-- Correo y Teléfono -->
           <div class="form-row">
-            <!-- Email -->
             <div class="form-group col-md-6">
               <label for="email">Correo electrónico</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                </div>
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-envelope"></i></span></div>
                 <input type="email" class="form-control" id="email" name="email_usuario" placeholder="ejemplo@correo.com">
               </div>
             </div>
 
-            <!-- Teléfono -->
             <div class="form-group col-md-6">
               <label for="telefono">Teléfono</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                </div>
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-phone"></i></span></div>
                 <input type="text" class="form-control" id="telefono" name="telf_usuario" placeholder="Ingrese teléfono">
               </div>
             </div>
           </div>
 
+          <!-- Cargo y Sede -->
           <div class="form-row">
-            <!-- Cargo -->
             <div class="form-group col-md-6">
               <label for="cargo">Cargo</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
-                </div>
-                <select class="form-control" id="cargo" name="cargo_id">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-briefcase"></i></span></div>
+                <select class="form-control" id="cargo_id" name="cargo_id">
                   <option value="">Seleccione un cargo</option>
-                  <option value="1">1</option>
-                  <option value="2">Operador</option>
-                  <option value="3">Soporte</option>
+                  <?php foreach($cargoUsuario as $cargo): ?>
+                    <option value="<?= $cargo['cargo_id'];?>"><?= $cargo['nombre_cargo'];?></option>
+                  <?php endforeach; ?>        
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="sede">Sede</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span></div>
+                <select class="form-control" id="sede" name="nombre_sede">
+                  <option value="">Seleccione una sede</option>
+                  <?php foreach($sedeCSJCN as $sede): ?>
+                    <option value="<?= $sede['sede_id'];?>"><?= $sede['nombre_sede'];?></option>
+                  <?php endforeach; ?>        
                 </select>
               </div>
             </div>
           </div>
 
+          <!-- Dependencia -->
           <div class="form-row">
-            <!-- Dependencia -->
             <div class="form-group col-md-12">
               <label for="dependencia">Dependencia</label>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-building"></i></span>
-                </div>
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-building"></i></span></div>
                 <select class="form-control" id="dependencia" name="dependencia_id">
                   <option value="">Seleccione una dependencia</option>
                   <option value="1">1</option>
@@ -275,9 +262,9 @@
             </div>
           </div>
 
-        </div> <!-- Cierre del modal-body -->
+        </div> <!-- /modal-body -->
 
-        <!-- Footer DENTRO del formulario -->
+        <!-- Footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
             <i class="fas fa-times"></i> Cerrar
@@ -285,14 +272,13 @@
           <button type="submit" class="btn btn-primary">
             <i class="fas fa-save"></i> Guardar
           </button>
-        </div>      
-      </form> <!-- Cierre del formulario -->
+        </div>
+
+      </form>
 
       <?php
-
       $crearUsuarios = new ControladorUsuarios();
       $crearUsuarios->ctrCrearUsuarios();
-
       ?>
 
     </div>
