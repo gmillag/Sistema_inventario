@@ -118,10 +118,6 @@
   </aside>
   <!-- /.control-sidebar -->
 </div>
-<!-- Botón para abrir el modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">
-  <i class="fas fa-user-plus"></i> Nuevo Usuario
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="modalAgregarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalUsuarioLabel" aria-hidden="true">
@@ -213,7 +209,7 @@
               <label for="telefono">Teléfono</label>
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-phone"></i></span></div>
-                <input type="text" class="form-control" id="telefono" name="telf_usuario" placeholder="Ingrese teléfono">
+                <input type="text" class="form-control" id="telefono" maxlength="9" name="telf_usuario" placeholder="Ingrese teléfono">
               </div>
             </div>
           </div>

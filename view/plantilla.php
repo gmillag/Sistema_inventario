@@ -107,6 +107,7 @@ include 'modulos/footer.php';
 <!-- Plantillas.js App -->
 <script src="view/js/plantilla.js"></script>
 <script src="view/js/dependencia.js"></script>
+<script src="view/js/validarUsuario.js"></script>
 </body>
 </html>
 

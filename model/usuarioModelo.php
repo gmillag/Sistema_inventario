@@ -92,17 +92,7 @@ class ModeloUsuarios{
         return $resultado;
     }
 
-    //Metodo que lista todos los cargos de la tabla USUARIO, apartir de la llave foranea CARGO_ID
-
-    
-
-
-
-
-
-
-
-
+      
 
 }
 ?>
