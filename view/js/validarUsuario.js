@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const telefonoInput = document.getElementById("telefono");
   const usuarioInput = document.getElementById("usuario");
 
-  let usuarioDisponible = false; // 👈 bandera para validar existencia
+  let usuarioDisponible = false; //  bandera para validar existencia
 
-  // 🔢 Validación en tiempo real para DNI
+  //  Validación en tiempo real para DNI
   if (dniInput) {
     dniInput.addEventListener("input", function () {
       this.value = this.value.replace(/[^0-9]/g, "").slice(0, 8);
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 🔍 Verificar si el usuario_id ya existe en la BD al perder el foco
+  // Verificar si el usuario_id ya existe en la BD al perder el foco
   if (usuarioInput) {
     usuarioInput.addEventListener("blur", function () {
       const usuario = usuarioInput.value.trim();
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ✅ Validación al enviar el formulario
+  // Validación al enviar el formulario
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
