@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("formUsuario");
   const dniInput = document.getElementById("dni");
   const telefonoInput = document.getElementById("telefono");
+  const usuarioInput = document.getElementById("usuario");
+
+  let usuarioDisponible = false; // 👈 bandera para validar existencia
 
   // 🔢 Validación en tiempo real para DNI
   if (dniInput) {
@@ -17,12 +20,43 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // 🔍 Verificar si el usuario_id ya existe en la BD al perder el foco
+  if (usuarioInput) {
+    usuarioInput.addEventListener("blur", function () {
+      const usuario = usuarioInput.value.trim();
+
+      if (usuario.length > 0) {
+        fetch("ajax/validar_usuario.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: "usuario=" + encodeURIComponent(usuario)
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log("Respuesta del servidor:", data); // 👀 Para debug
+            if (data.existe) {
+              usuarioDisponible = false;
+              Swal.fire({
+                icon: "warning",
+                title: "Usuario ya existe",
+                text: "El ID de usuario que ingresaste ya está registrado. Por favor, elige otro.",
+              });
+              usuarioInput.classList.add("is-invalid");
+            } else {
+              usuarioDisponible = true;
+              usuarioInput.classList.remove("is-invalid");
+            }
+          })
+          .catch(err => console.error("Error al validar usuario:", err));
+      }
+    });
+  }
+
   // ✅ Validación al enviar el formulario
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const usuario = document.getElementById("usuario");
       const password = document.getElementById("password");
       const nombre = document.getElementById("nombre");
       const apellidoP = document.getElementById("apellidoPaterno");
@@ -34,18 +68,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const regexDNI = /^[0-9]{8}$/;
       const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const regexTelefono = /^[0-9]{6,9}$/;
+      const regexTelefono = /^[0-9]{9}$/;
 
       let errores = [];
 
-      if (usuario.value.trim() === "") errores.push("Ingrese el usuario.");
+      if (usuarioInput.value.trim() === "") errores.push("Ingrese el usuario.");
+      if (!usuarioDisponible) errores.push("El usuario ingresado ya existe. Debe elegir otro.");
       if (password.value.trim() === "") errores.push("Ingrese la contraseña.");
       if (!regexDNI.test(dniInput.value)) errores.push("El DNI debe tener 8 dígitos numéricos.");
       if (nombre.value.trim() === "") errores.push("Ingrese los nombres.");
       if (apellidoP.value.trim() === "") errores.push("Ingrese el apellido paterno.");
       if (apellidoM.value.trim() === "") errores.push("Ingrese el apellido materno.");
       if (!regexEmail.test(email.value)) errores.push("Ingrese un correo válido.");
-      if (!regexTelefono.test(telefonoInput.value)) errores.push("Ingrese un teléfono válido (6 a 9 dígitos).");
+      if (!regexTelefono.test(telefonoInput.value)) errores.push("Ingrese un teléfono válido (9 dígitos).");
       if (cargo.value === "") errores.push("Seleccione un cargo.");
       if (sede.value === "") errores.push("Seleccione una sede.");
       if (dependencia.value === "") errores.push("Seleccione una dependencia.");
@@ -70,5 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const el = document.getElementById(id);
       if (el) el.value = "";
     });
+
+    usuarioDisponible = false; // reset al cerrar modal
+    if (usuarioInput) usuarioInput.classList.remove("is-invalid");
   });
-}); // 👈 ESTA LLAVE CIERRA TODO
+});
