@@ -93,6 +93,81 @@ class ControladorUsuarios
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+    /* ============================================================
+       EDITAR USUARIO
+    ============================================================ */
+    public static function ctrEditarUsuarios()
+    {
+        if (!isset($_POST['usuario_id'])) {
+            return;
+        }
+
+        $tabla = "usuario";
+
+        // Encriptamos la contraseña
+        $encriptar = password_hash($_POST["passwordEditar"], PASSWORD_DEFAULT);
+
+        $datos = array(
+            'usuario_id'       => $_POST['usuarioEditar'],
+            'nombre_usuario'   => $_POST['nombreEditar'],
+            'apellidop_usuario'=> $_POST['apellidoPaternoEditar'],
+            'apellidom_usuario'=> $_POST['apellidoMaternoEditar'],
+            'dni_usuario'      => $_POST['dniEditar'],
+            'clave_usuario'    => $encriptar,
+            'email_usuario'    => $_POST['emailEditar'],
+            'telf_usuario'     => $_POST['telefonoEditar'],
+            'cargo_id'         => $_POST['cargo_idEditar'],
+            'dependencia_id'   => $_POST['dependencia_idEditar']
+        );
+
+        try {
+            $respuesta = ModeloUsuarios::mdlEditarUsuarios($tabla, $datos);
+
+            if ($respuesta === "ok") {
+                echo json_encode([
+                    "status"  => "success",
+                    "message" => "Usuario actualizado"
+                ]);
+            } else {
+                echo json_encode([
+                    "status"  => "error",
+                    "message" => "No se pudo actualizar el registro."
+                ]);
+            }
+        } catch (PDOException $e) {
+            // Detectamos si es error de clave duplicada (MySQL usa el código 23000)
+            if ($e->getCode() == 23000) {
+                $msg = "El usuario o el DNI ya existen en la base de datos.";
+            } else {
+                $msg = "Error en la base de datos: " . $e->getMessage();
+            }
+
+            echo json_encode([
+                "status"  => "error",
+                "message" => $msg
+            ]);
+        }
+
+        exit; // Para que no siga cargando toda la vista
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 ?>

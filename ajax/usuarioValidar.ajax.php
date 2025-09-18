@@ -1,4 +1,7 @@
 <?php
+
+// ==================== VALIDANDO DUPLICIDAD DE USUARIOS EN LA BD ====================
+
 header('Content-Type: application/json; charset=utf-8');
 
 require_once "../model/conexion.php";
@@ -28,3 +31,4 @@ try {
     echo json_encode(["error" => "Error de conexión: " . $e->getMessage()]);
     exit;
 }
+

@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="?ruta=inicio" class="brand-link">
       <img src="view/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Gestión de Equipos</span>
+      <span class="brand-text font-weight-light">Gestión de Inventario</span>
     </a>
 
     <!-- Sidebar -->

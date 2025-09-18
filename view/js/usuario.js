@@ -1,3 +1,5 @@
+// ====================CREACIÓN DE USUARIO ====================
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("formUsuario");
   const dniInput = document.getElementById("dni");
@@ -13,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 📱 Validación en tiempo real para Teléfono
+  // Validación en tiempo real para Teléfono
   if (telefonoInput) {
     telefonoInput.addEventListener("input", function () {
       this.value = this.value.replace(/[^0-9]/g, "").slice(0, 9);
@@ -26,14 +28,14 @@ document.addEventListener("DOMContentLoaded", function () {
       const usuario = usuarioInput.value.trim();
 
       if (usuario.length > 0) {
-        fetch("ajax/validar_usuario.php", {
+        fetch("ajax/usuarioValidar.ajax.php", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: "usuario=" + encodeURIComponent(usuario)
         })
           .then(res => res.json())
           .then(data => {
-            console.log("Respuesta del servidor:", data); // 👀 Para debug
+            console.log("Respuesta del servidor:", data); // Para debuguear
             if (data.existe) {
               usuarioDisponible = false;
               Swal.fire({
@@ -52,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Validación al enviar el formulario
+// ==================== VALIDAR USUARIO ====================
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -73,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let errores = [];
 
       if (usuarioInput.value.trim() === "") errores.push("Ingrese el usuario.");
-      if (!usuarioDisponible) errores.push("El usuario ingresado ya existe. Debe elegir otro.");
+      // if (!usuarioDisponible) errores.push("El usuario ingresado ya existe. Debe elegir otro.");
       if (password.value.trim() === "") errores.push("Ingrese la contraseña.");
       if (!regexDNI.test(dniInput.value)) errores.push("El DNI debe tener 8 dígitos numéricos.");
       if (nombre.value.trim() === "") errores.push("Ingrese los nombres.");
@@ -97,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // 🧹 Limpiar formulario y selects cuando se cierre el modal
+  //  // ==================== LIMPIAR FORMULARIO ====================
   $('#modalAgregarUsuario').on('hidden.bs.modal', function () {
     if (form) form.reset();
 
@@ -110,3 +112,44 @@ document.addEventListener("DOMContentLoaded", function () {
     if (usuarioInput) usuarioInput.classList.remove("is-invalid");
   });
 });
+
+
+// ==================== EDITAR USUARIO ====================
+
+$(".tablas").on("click",".btnEditarUsuario",function(){
+
+  var idUsuario =$(this).attr("idUsuario");
+  var datos=new FormData();
+
+  datos.append("idUsuario",idUsuario);
+
+  $.ajax({
+
+    url:"ajax/usuarioEditar.ajax.php",
+    method: "POST",
+    data: datos,
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType:"json",
+    success:function(respuesta){
+
+      $("#usuarioEditar").val(respuesta["usuario_id"]);
+      $("#nombreEditar").val(respuesta["nombre_usuario"])
+      $("#apellidoPaternoEditar").val(respuesta["apellidop_usuario"])
+      $("#apellidoMaternoEditar").val(respuesta["apellidom_usuario"])
+      $("#dniEditar").val(respuesta["dni_usuario"])
+      $("#passwordEditar").val(respuesta["clave_usuario"])
+      $("#emailEditar").val(respuesta["email_usuario"])
+      $("#telefonoEditar").val(respuesta["telf_usuario"])
+      $("#cargo_idEditar").val(respuesta["cargo_id"])
+      $("#dependencia_idEditar").val(respuesta["dependencia_id"])
+      $("#estadoEditar").val(respuesta["estado_usuario"])
+    }
+
+  })
+
+
+
+  
+})

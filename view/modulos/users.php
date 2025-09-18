@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>DataTables</h1>
+            <h1>Gestión de Usuarios</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -51,9 +51,8 @@
                     <th>CARGO</th>
                     <th>DEPENDENCIA</th>
                     <th>SEDE</th>
-                    <th>EDITAR</th>
-                    <th>ELIMINAR</th>
-                  </tr>
+                    <th>ACCIONES</th>
+                    </tr>
                   </thead>
 
                   <tbody>
@@ -78,8 +77,12 @@
                       <td>".$valores["nombre_cargo"]."</td>
                       <td>".$valores["nombre_dependencia"]."</td>
                       <td>".$valores["nombre_sede"]."</td>
-                      <td><button class='btn btn-primary'>Editar</button></td>
-                      <td><button class='btn btn-danger'>Eliminar</button></td>
+                      <td>
+                      <button class='btn btn-primary btnEditarUsuario' idUsuario=".$valores["usuario_id"]."
+                      data-toggle='modal' data-target='#modalEditarUsuario'>Editar</button>
+
+                      <button class='btn btn-danger'>Eliminar</button>
+                      </td>
                                            
 
 
@@ -119,7 +122,9 @@
   <!-- /.control-sidebar -->
 </div>
 
-<!-- Modal -->
+
+
+<!-- ==================== MODAL CREAR USUARIO ====================-->
 <div class="modal fade" id="modalAgregarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalUsuarioLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -274,6 +279,169 @@
       <?php
       $crearUsuarios = new ControladorUsuarios();
       $crearUsuarios->ctrCrearUsuarios();
+      ?>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ==================== MODAL EDITAR USUARIO ====================-->
+<div class="modal fade" id="modalEditarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalUsuarioLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+      <!-- Formulario -->
+      <form id="formUsuarioEditar" method="POST" action="">
+        
+        <!-- Encabezado -->
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="modalUsuarioLabel"><i class="fas fa-user"></i> Editar Usuario</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Cuerpo -->
+        <div class="modal-body">
+          
+          <!-- Primera fila -->
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="usuario">Usuario</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
+                <input type="text" class="form-control" id="usuarioEditar" name="usuario_id">
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="password">Contraseña</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-lock"></i></span></div>
+                <input type="password" class="form-control" id="passwordEditar" name="clave_usuario">
+              </div>
+            </div>
+          </div>
+
+          <!-- Segunda fila -->
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="dni">DNI</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="far fa-id-card"></i></span></div>
+                <input type="text" class="form-control" id="dniEditar" name="dni_usuario" maxlength="8">
+              </div>
+            </div>
+
+            <div class="form-group col-md-8">
+              <label for="nombre">Nombres</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user-tag"></i></span></div>
+                <input type="text" class="form-control" id="nombreEditar" name="nombre_usuario">
+              </div>
+            </div>
+          </div>
+
+          <!-- Apellidos -->
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="apellidoPaterno">Apellido Paterno</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
+                <input type="text" class="form-control" id="apellidoPaternoEditar" name="apellidop_usuario">
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="apellidoMaterno">Apellido Materno</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
+                <input type="text" class="form-control" id="apellidoMaternoEditar" name="apellidom_usuario">
+              </div>
+            </div>
+          </div>
+
+          <!-- Correo y Teléfono -->
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="email">Correo electrónico</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-envelope"></i></span></div>
+                <input type="email" class="form-control" id="emailEditar" name="email_usuario">
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="telefono">Teléfono</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-phone"></i></span></div>
+                <input type="text" class="form-control" id="telefonoEditar" maxlength="9" name="telf_usuario">
+              </div>
+            </div>
+          </div>
+
+          <!-- Cargo y Sede -->
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="cargo">Cargo</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-briefcase"></i></span></div>
+                <select class="form-control" id="cargo_idEditar" name="cargo_id">
+                  <option value="">Seleccione un cargo</option>
+                  <?php foreach($cargoUsuario as $cargo): ?>
+                    <option value="<?= $cargo['cargo_id'];?>"><?= $cargo['nombre_cargo'];?></option>
+                  <?php endforeach; ?>        
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="sede">Sede</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span></div>
+                <select class="form-control" id="sede_idEditar" name="sede_id">
+                  <option value="">Seleccione una sede</option>
+                  <?php foreach($sedeCSJCN as $sede): ?>
+                    <option value="<?= $sede['sede_id'];?>"><?= $sede['nombre_sede'];?></option>
+                  <?php endforeach; ?>        
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dependencia -->
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="dependencia">Dependencia</label>
+              <div class="input-group">
+                <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-building"></i></span></div>
+                <select class="form-control" id="dependencia_idEditar" name="dependencia_id">
+                  <option value="">Seleccione una dependencia</option>
+ 
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div> <!-- /modal-body -->
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <i class="fas fa-times"></i> Cerrar
+          </button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Actualizar
+          </button>
+        </div>
+
+      </form>
+
+      <?php
+      $crearUsuarios = new ControladorUsuarios();
+      $crearUsuarios->ctrEditarUsuarios();
       ?>
 
     </div>
