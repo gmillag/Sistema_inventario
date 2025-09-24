@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const telefonoInput = document.getElementById("telefono");
   const usuarioInput = document.getElementById("usuario");
 
-  let usuarioDisponible = false; //  bandera para validar existencia
+  let usuarioDisponible = false;
 
-  //  Validación en tiempo real para DNI
+  // Validación en tiempo real para DNI
   if (dniInput) {
     dniInput.addEventListener("input", function () {
       this.value = this.value.replace(/[^0-9]/g, "").slice(0, 8);
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
           .then(res => res.json())
           .then(data => {
-            console.log("Respuesta del servidor:", data); // Para debuguear
+            console.log("Respuesta del servidor:", data);
             if (data.existe) {
               usuarioDisponible = false;
               Swal.fire({
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-// ==================== VALIDAR USUARIO ====================
+  // ==================== VALIDAR USUARIO ====================
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
       let errores = [];
 
       if (usuarioInput.value.trim() === "") errores.push("Ingrese el usuario.");
-      // if (!usuarioDisponible) errores.push("El usuario ingresado ya existe. Debe elegir otro.");
       if (password.value.trim() === "") errores.push("Ingrese la contraseña.");
       if (!regexDNI.test(dniInput.value)) errores.push("El DNI debe tener 8 dígitos numéricos.");
       if (nombre.value.trim() === "") errores.push("Ingrese los nombres.");
@@ -99,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  //  // ==================== LIMPIAR FORMULARIO ====================
+  // ==================== LIMPIAR FORMULARIO ====================
   $('#modalAgregarUsuario').on('hidden.bs.modal', function () {
     if (form) form.reset();
 
@@ -108,48 +107,88 @@ document.addEventListener("DOMContentLoaded", function () {
       if (el) el.value = "";
     });
 
-    usuarioDisponible = false; // reset al cerrar modal
+    usuarioDisponible = false;
     if (usuarioInput) usuarioInput.classList.remove("is-invalid");
   });
 });
 
-
 // ==================== EDITAR USUARIO ====================
-
-$(".tablas").on("click",".btnEditarUsuario",function(){
-
-  var idUsuario =$(this).attr("idUsuario");
-  var datos=new FormData();
-
-  datos.append("idUsuario",idUsuario);
+$(".tablas").on("click", ".btnEditarUsuario", function(){
+  var usuario_id = $(this).attr("usuario_id");
+  var datos = new FormData();
+  datos.append("usuario_id", usuario_id);
 
   $.ajax({
-
-    url:"ajax/usuarioEditar.ajax.php",
+    url: "ajax/usuarioEditar.ajax.php",
     method: "POST",
     data: datos,
     cache: false,
     contentType: false,
     processData: false,
-    dataType:"json",
-    success:function(respuesta){
-
+    dataType: "json",
+    success: function(respuesta){
       $("#usuarioEditar").val(respuesta["usuario_id"]);
-      $("#nombreEditar").val(respuesta["nombre_usuario"])
-      $("#apellidoPaternoEditar").val(respuesta["apellidop_usuario"])
-      $("#apellidoMaternoEditar").val(respuesta["apellidom_usuario"])
-      $("#dniEditar").val(respuesta["dni_usuario"])
-      $("#passwordEditar").val(respuesta["clave_usuario"])
-      $("#emailEditar").val(respuesta["email_usuario"])
-      $("#telefonoEditar").val(respuesta["telf_usuario"])
-      $("#cargo_idEditar").val(respuesta["cargo_id"])
-      $("#dependencia_idEditar").val(respuesta["dependencia_id"])
-      $("#estadoEditar").val(respuesta["estado_usuario"])
+      $("#nombreEditar").val(respuesta["nombre_usuario"]);
+      $("#apellidoPaternoEditar").val(respuesta["apellidop_usuario"]);
+      $("#apellidoMaternoEditar").val(respuesta["apellidom_usuario"]);
+      $("#dniEditar").val(respuesta["dni_usuario"]);
+      $("#passwordEditar").val(respuesta["clave_usuario"]);
+      $("#emailEditar").val(respuesta["email_usuario"]);
+      $("#telefonoEditar").val(respuesta["telf_usuario"]);
+      $("#cargo_idEditar").val(respuesta["cargo_id"]);
+      $("#dependencia_idEditar").val(respuesta["dependencia_id"]);
+      $("#estadoEditar").val(respuesta["estado_usuario"]);
     }
+  });
+});
 
-  })
+// ==================== GUARDAR CAMBIOS DE USUARIO ====================
+$("#formUsuarioEditar").on("submit", function(e){
+  e.preventDefault();
 
+  var datos = new FormData(this);
 
+  $.ajax({
+    url: "ajax/usuarioEditar.ajax.php",
+    method: "POST",
+    data: datos,
+    cache: false,
+    contentType: false,
+    processData: false,
+    dataType: "json",
+    success: function(respuesta){
+      console.log("Respuesta servidor:", respuesta);
 
-  
-})
+      if (respuesta.status === "success") {
+        Swal.fire({
+          icon: "success",
+          title: "¡Actualizado!",
+          text: respuesta.message,
+          timer: 2000,
+          showConfirmButton: false
+        });
+        $("#modalEditarUsuario").modal("hide");
+
+        // SOLUCIÓN: Recargar la página completa
+        setTimeout(function() {
+          location.reload();
+        }, 1500);
+        
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: respuesta.message
+        });
+      }
+    },
+    error: function(xhr, status, error){
+      console.error("Error AJAX:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error de conexión",
+        text: "No se pudo comunicar con el servidor."
+      });
+    }
+  });
+});

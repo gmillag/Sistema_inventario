@@ -100,9 +100,10 @@ class ModeloUsuarios{
 
     
        
-    // Metodo que edita la información del usuario.
-    public static function mdlEditarUsuarios($tabla, $datos){
+   // Metodo que edita la información del usuario.
+public static function mdlEditarUsuarios($tabla, $datos){
 
+    try {
         $sql =  "UPDATE $tabla SET
                 nombre_usuario = :nombre_usuario,
                 apellidop_usuario = :apellidop_usuario,
@@ -125,16 +126,22 @@ class ModeloUsuarios{
         $stmt->bindParam(":clave_usuario", $datos["clave_usuario"], PDO::PARAM_STR);
         $stmt->bindParam(":email_usuario", $datos["email_usuario"], PDO::PARAM_STR);
         $stmt->bindParam(":telf_usuario", $datos["telf_usuario"], PDO::PARAM_STR);
-        $stmt->bindParam(":cargo_id", $datos["cargo_id"], PDO::PARAM_STR);
-        $stmt->bindParam(":dependencia_id", $datos["dependencia_id"], PDO::PARAM_STR);
+        $stmt->bindParam(":cargo_id", $datos["cargo_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":dependencia_id", $datos["dependencia_id"], PDO::PARAM_INT);
 
         if($stmt->execute()){
             return "ok";
         } else {
-            return "error";
+            // Mostrar el error exacto de MySQL
+            $error = $stmt->errorInfo();
+            return "Error SQL: " . $error[2];
         }
 
-        $stmt->close();
-        $stmt = null;
+    } catch (PDOException $e) {
+        return "Excepción: " . $e->getMessage();
+    } finally {
+        $stmt = null; // Cerrar statement
     }
+}
+
 }

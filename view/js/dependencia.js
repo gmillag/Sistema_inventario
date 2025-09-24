@@ -38,9 +38,9 @@ $(document).ready(function () {
 
   // Cuando abras el modal editar, cargas dependencias segun sede
   $(".tablas").on("click", ".btnEditarUsuario", function () {
-    let idUsuario = $(this).attr("idUsuario");
+    let usuario_id = $(this).attr("usuario_id");
     let datos = new FormData();
-    datos.append("idUsuario", idUsuario);
+    datos.append("usuario_id", usuario_id);
 
     $.ajax({
       url: "ajax/usuarioEditar.ajax.php",

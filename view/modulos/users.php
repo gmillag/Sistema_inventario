@@ -78,7 +78,7 @@
                       <td>".$valores["nombre_dependencia"]."</td>
                       <td>".$valores["nombre_sede"]."</td>
                       <td>
-                      <button class='btn btn-primary btnEditarUsuario' idUsuario=".$valores["usuario_id"]."
+                      <button class='btn btn-primary btnEditarUsuario' usuario_id=".$valores["usuario_id"]."
                       data-toggle='modal' data-target='#modalEditarUsuario'>Editar</button>
 
                       <button class='btn btn-danger'>Eliminar</button>
@@ -320,7 +320,7 @@
               <label for="password">Contraseña</label>
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-lock"></i></span></div>
-                <input type="password" class="form-control" id="passwordEditar" name="clave_usuario">
+                <input type="" class="form-control" id="passwordEditar" name="clave_usuario">
               </div>
             </div>
           </div>
@@ -438,12 +438,6 @@
         </div>
 
       </form>
-
-      <?php
-      $crearUsuarios = new ControladorUsuarios();
-      $crearUsuarios->ctrEditarUsuarios();
-      ?>
-
     </div>
   </div>
 </div>

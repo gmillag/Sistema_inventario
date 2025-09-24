@@ -1,33 +1,41 @@
 <?php
-
 require_once '../control/usuarioControlador.php';
 require_once '../model/usuarioModelo.php';
 
-class AjaxUsuarios{
+class AjaxUsuarios {
 
-    public $idUsuario;
+    public $usuario_id;
 
-    public function AjaxEditarUsuarios(){
+    // ==========================
+    // CARGAR DATOS (llenar modal)
+    // ==========================
+    public function AjaxEditarUsuarios() {
+        $item = "usuario_id";
+        $valor = $this->usuario_id;
 
-        $item="usuario_id";
-        $valor=$this->idUsuario;
+        $respuesta = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
 
-        $respuesta = ControladorUsuarios::ctrMostrarUsuarios($item,$valor);
-
-        echo json_encode($respuesta);
-
-
+        // Asegurarse de que siempre sea JSON válido
+        echo json_encode($respuesta, JSON_UNESCAPED_UNICODE);
+        exit;
     }
-
-
-
 }
 
-if (isset($_POST["idUsuario"])){
-
+// ==========================
+// SI SE RECIBE usuario_id -> cargar datos
+// ==========================
+if (isset($_POST["usuario_id"]) && !isset($_POST["nombre_usuario"])) {
     $editar = new AjaxUsuarios();
-    $editar->idUsuario=$_POST['idUsuario'];
+    $editar->usuario_id = $_POST['usuario_id'];
     $editar->AjaxEditarUsuarios();
+}
 
+// ==========================
+// SI SE RECIBE FORMULARIO COMPLETO -> actualizar usuario
+// ==========================
+if (isset($_POST["usuario_id"]) && isset($_POST["nombre_usuario"])) {
 
+    // Llamar al controlador que maneja la edición
+    ControladorUsuarios::ctrEditarUsuarios();
+    // 🚨 No se necesita otro echo, el controlador devuelve JSON y hace exit
 }

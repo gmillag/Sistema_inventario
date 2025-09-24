@@ -86,6 +86,7 @@ class ControladorUsuarios
             JOIN cargo_usuario cu ON u.cargo_id = cu.cargo_id
             JOIN dependencia d ON u.dependencia_id = d.dependencia_id
             JOIN sede s ON d.sede_id = s.sede_id
+            where u.estado_usuario =1
             ORDER BY nombre_usuario
         ";
 
@@ -107,19 +108,19 @@ class ControladorUsuarios
         $tabla = "usuario";
 
         // Encriptamos la contraseña
-        $encriptar = password_hash($_POST["passwordEditar"], PASSWORD_DEFAULT);
+        $encriptar = password_hash($_POST["clave_usuario"], PASSWORD_DEFAULT);
 
         $datos = array(
-            'usuario_id'       => $_POST['usuarioEditar'],
-            'nombre_usuario'   => $_POST['nombreEditar'],
-            'apellidop_usuario'=> $_POST['apellidoPaternoEditar'],
-            'apellidom_usuario'=> $_POST['apellidoMaternoEditar'],
-            'dni_usuario'      => $_POST['dniEditar'],
+            'usuario_id'       => $_POST['usuario_id'],
+            'nombre_usuario'   => $_POST['nombre_usuario'],
+            'apellidop_usuario'=> $_POST['apellidop_usuario'],
+            'apellidom_usuario'=> $_POST['apellidom_usuario'],
+            'dni_usuario'      => $_POST['dni_usuario'],
             'clave_usuario'    => $encriptar,
-            'email_usuario'    => $_POST['emailEditar'],
-            'telf_usuario'     => $_POST['telefonoEditar'],
-            'cargo_id'         => $_POST['cargo_idEditar'],
-            'dependencia_id'   => $_POST['dependencia_idEditar']
+            'email_usuario'    => $_POST['email_usuario'],
+            'telf_usuario'     => $_POST['telf_usuario'],
+            'cargo_id'         => $_POST['cargo_id'],
+            'dependencia_id'   => $_POST['dependencia_id']
         );
 
         try {
