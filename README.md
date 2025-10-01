@@ -1,4 +1,5 @@
 # Sistema_inventario
 
 
-<img width="1552" height="687" alt="Captura de pantalla 2025-10-01 132045" src="https://github.com/user-attachments/assets/1df6358b-bd12-4d7a-b80e-7adeadda45b1" />
+
+<img width="1477" height="811" alt="Captura de pantalla 2025-10-01 132522" src="https://github.com/user-attachments/assets/e108b081-2cb0-4bc4-8727-b547840b6ee6" />
