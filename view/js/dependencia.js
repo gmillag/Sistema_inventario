@@ -43,7 +43,7 @@ $(document).ready(function () {
     datos.append("usuario_id", usuario_id);
 
     $.ajax({
-      url: "ajax/usuarioEditar.ajax.php",
+      url: "ajax/usuario.ajax.php",
       method: "POST",
       data: datos,
       cache: false,

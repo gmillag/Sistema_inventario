@@ -439,3 +439,40 @@
 </div>
 
 <!-- ==================== MODAL ELIMINAR USUARIO ==================== -->
+<div class="modal fade" id="modalEliminarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="modalEliminarLabel">
+                    <i class="fas fa-user-slash"></i> Desactivar Usuario
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas desactivar al usuario <strong id="nombreUsuarioEliminar"></strong>?</p>
+                <p class="text-muted small">
+                    <i class="fas fa-info-circle"></i> El usuario no se mostrará en la lista de usuarios activos, pero se mantendrá en la base de datos.
+                </p>
+                <input type="hidden" id="usuarioIdEliminar" name="usuario_id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">
+                    <i class="fas fa-user-slash"></i> Desactivar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+// Procesar la desactivación del usuario
+if (isset($_POST['usuario_id'])) {
+    $desactivarUsuario = new ControladorUsuarios();
+    $desactivarUsuario->ctrDesactivarUsuario();
+}
+?>

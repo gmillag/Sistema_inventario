@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const usuario = usuarioInput.value.trim();
 
       if (usuario.length > 0) {
-        fetch("ajax/usuarioValidar.ajax.php", {
+        fetch("ajax/usuario.ajax.php", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: "usuario=" + encodeURIComponent(usuario)
@@ -119,7 +119,7 @@ $(".tablas").on("click", ".btnEditarUsuario", function(){
   datos.append("usuario_id", usuario_id);
 
   $.ajax({
-    url: "ajax/usuarioEditar.ajax.php",
+    url: "ajax/usuario.ajax.php",
     method: "POST",
     data: datos,
     cache: false,
@@ -149,7 +149,7 @@ $("#formUsuarioEditar").on("submit", function(e){
   var datos = new FormData(this);
 
   $.ajax({
-    url: "ajax/usuarioEditar.ajax.php",
+    url: "ajax/usuario.ajax.php",
     method: "POST",
     data: datos,
     cache: false,
@@ -193,28 +193,82 @@ $("#formUsuarioEditar").on("submit", function(e){
   });
 });
 
+// ==================== ELIMINAR/DESACTIVAR USUARIO ====================
 
-// Configurar el modal cuando se hace clic en eliminar
-$(document).on("click", ".btnEliminarUsuario", function () {
-    var usuarioId = $(this).data("usuario_id");
-    var nombreUsuario = $(this).data("nombre");
+// Variables globales para el modal de eliminar
+let usuarioIdAEliminar = null;
 
-    console.log("ID a eliminar:", usuarioId);
+// Abrir modal de eliminar
+$(".tablas").on("click", ".btnEliminarUsuario", function(){
+    usuarioIdAEliminar = $(this).data('usuario_id');
+    const nombreUsuario = $(this).data('nombre');
     
-    $("#usuarioIdEliminar").val(usuarioId);
     $("#nombreUsuarioEliminar").text(nombreUsuario);
+    $("#usuarioIdEliminar").val(usuarioIdAEliminar);
 });
 
-// Opcional: Mostrar loading al enviar
-$(document).ready(function() {
-    $('#modalEliminarUsuario form').on('submit', function() {
-        $('button[type="submit"]', this).html('<i class="fas fa-spinner fa-spin"></i> Procesando...').prop('disabled', true);
-    });
-    
-    // Limpiar modal cuando se cierre
-    $('#modalEliminarUsuario').on('hidden.bs.modal', function () {
-        $('#nombreUsuarioEliminar').text('');
-        $('#usuarioIdEliminar').val('');
-        $('button[type="submit"]', this).html('<i class="fas fa-user-slash"></i> Desactivar').prop('disabled', false);
-    });
+// Confirmar eliminación
+$("#btnConfirmarEliminar").on("click", function(){
+    if (usuarioIdAEliminar) {
+        desactivarUsuario(usuarioIdAEliminar);
+    }
 });
+
+// Función para desactivar usuario
+function desactivarUsuario(usuarioId) {
+    const datos = new FormData();
+    datos.append("accion", "eliminar");
+    datos.append("usuario_id", usuarioId);
+
+    console.log("Enviando datos de eliminación:", {
+        accion: "eliminar",
+        usuario_id: usuarioId
+    });
+
+    $.ajax({
+        url: "ajax/usuario.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function(respuesta){
+            console.log("Respuesta desactivar:", respuesta);
+            
+            // VERIFICAR que sea la respuesta correcta
+            if (respuesta.status === "success") {
+                $("#modalEliminarUsuario").modal("hide");
+                
+                Swal.fire({
+                    icon: "success",
+                    title: "¡Desactivado!",
+                    text: respuesta.message,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                
+                setTimeout(function() {
+                    location.reload();
+                }, 1500);
+                
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: respuesta.message || "Error desconocido"
+                });
+            }
+        },
+        error: function(xhr, status, error){
+            console.error("Error AJAX:", error);
+            console.log("Respuesta completa:", xhr.responseText);
+            
+            Swal.fire({
+                icon: "error",
+                title: "Error de conexión",
+                text: "No se pudo comunicar con el servidor."
+            });
+        }
+    });
+}

@@ -167,8 +167,37 @@ class ControladorUsuarios
     }
 
 /* ============================================================
-ELIMINAR USUARIO
+   DESACTIVAR USUARIO (Borrado lógico)
 ============================================================ */
+public static function ctrDesactivarUsuario()
+{
+    if (isset($_POST['usuario_id'])) {
+        $tabla = "usuario";
+        $usuario_id = $_POST['usuario_id'];
+        
+        try {
+            $respuesta = ModeloUsuarios::mdlDesactivarUsuario($tabla, $usuario_id);
+            
+            if ($respuesta === "ok") {
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Usuario desactivado correctamente"
+                ]);
+            } else {
+                echo json_encode([
+                    "status" => "error", 
+                    "message" => "Error al desactivar el usuario"
+                ]);
+            }
+        } catch (PDOException $e) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Error en la base de datos: " . $e->getMessage()
+            ]);
+        }
+        exit;
+    }
+}
 
 }
 
