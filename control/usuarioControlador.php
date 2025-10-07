@@ -60,6 +60,18 @@ class ControladorUsuarios
         exit; // Para que no siga cargando toda la vista
     }
 
+        /* ============================================================
+       MOSTRAR CARGO DE USUARIO
+    ============================================================ */
+
+        static public function ctrListarCargoUsuario(){
+        
+        $tabla="cargo_usuario";
+        $respuesta=ModeloUsuarios::mdlListarCargoUsuario($tabla);
+        return $respuesta;
+
+    }
+
     /* ============================================================
        MOSTRAR UN USUARIO (por item)
     ============================================================ */
@@ -154,21 +166,10 @@ class ControladorUsuarios
         exit; // Para que no siga cargando toda la vista
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* ============================================================
+ELIMINAR USUARIO
+============================================================ */
 
 }
 
-?>
+

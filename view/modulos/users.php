@@ -43,7 +43,7 @@
               <div class="card-body">
                 <table class="table table-bordered table-striped tablas">
                   <thead>
-                  <tr>
+                  <tr> 
                     <th>Nº</th>
                     <th>NOMBRES COMPLETOS</th>
                     <th>USUARIO</th>
@@ -54,49 +54,45 @@
                     <th>ACCIONES</th>
                     </tr>
                   </thead>
-
+                                  
                   <tbody>
-                  
-                  <?php
-                    $item=null;
-                    $valor=null;
+                      <?php
+                      $item = null;
+                      $valor = null;
 
-                    $usuarios =ControladorUsuarios::ctrMostrarUsuariosConNombres();
-                    $cargoUsuario=ControladorCargo_Usuario::ctrListarCargoUsuario();
-                    $sedeCSJCN=ControladorSede::ctrListarSede();
-                    $dependenciaCSJCN=ControladorDependencia::ctrListarDependencia();
+                      $usuarios = ControladorUsuarios::ctrMostrarUsuariosConNombres();
+                      $cargoUsuario = ControladorUsuarios::ctrListarCargoUsuario();
+                      $sedeCSJCN = ControladorSede::ctrListarSede();
+                      $dependenciaCSJCN = ControladorDependencia::ctrListarDependencia();
 
-                    foreach($usuarios as $key=>$valores){
-                      echo "
-                      <tr>
+                      foreach($usuarios as $key => $valores){
+                          echo "
+                          <tr>
+                              <td>".($key+1)."</td>
+                              <td>".$valores['nombre_usuario']."</td>
+                              <td>".$valores['usuario_id']."</td>
+                              <td>".$valores['dni_usuario']."</td>
+                              <td>".$valores['nombre_cargo']."</td>
+                              <td>".$valores['nombre_dependencia']."</td>
+                              <td>".$valores['nombre_sede']."</td>
+                              <td>
+                                  <button class='btn btn-primary btnEditarUsuario' 
+                                          usuario_id='".$valores['usuario_id']."' 
+                                          data-toggle='modal' data-target='#modalEditarUsuario'>
+                                      Editar
+                                  </button>
 
-                      <td>".($key+1)."</td>
-                      <td>".$valores["nombre_usuario"]."</td>
-                      <td>".$valores["usuario_id"]."</td>
-                      <td>".$valores["dni_usuario"]."</td>
-                      <td>".$valores["nombre_cargo"]."</td>
-                      <td>".$valores["nombre_dependencia"]."</td>
-                      <td>".$valores["nombre_sede"]."</td>
-                      <td>
-                      <button class='btn btn-primary btnEditarUsuario' usuario_id=".$valores["usuario_id"]."
-                      data-toggle='modal' data-target='#modalEditarUsuario'>Editar</button>
-
-                      <button class='btn btn-danger'>Eliminar</button>
-                      </td>
-                                           
-
-
-
-                      </tr>
-                      
-                      
-                      
-                      
-                      ";
-                    }
-
-                  
-                  ?>
+                                  <button class='btn btn-danger btnEliminarUsuario' 
+                                          data-usuario_id='".$valores['usuario_id']."' 
+                                          data-nombre='".$valores['nombre_usuario']."' 
+                                          data-toggle='modal' data-target='#modalEliminarUsuario'>
+                                      Eliminar
+                                  </button>
+                              </td>
+                          </tr>
+                          ";
+                      }
+                      ?>
                   
                 </tbody>
                 
@@ -312,7 +308,7 @@
               <label for="usuario">Usuario</label>
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-user"></i></span></div>
-                <input type="text" class="form-control" id="usuarioEditar" name="usuario_id">
+                <input type="text" class="form-control" id="usuarioEditar" name="usuario_id" readonly>
               </div>
             </div>
 
@@ -320,7 +316,7 @@
               <label for="password">Contraseña</label>
               <div class="input-group">
                 <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-lock"></i></span></div>
-                <input type="" class="form-control" id="passwordEditar" name="clave_usuario">
+                <input type="password" class="form-control" id="passwordEditar" name="clave_usuario">
               </div>
             </div>
           </div>
@@ -441,3 +437,5 @@
     </div>
   </div>
 </div>
+
+<!-- ==================== MODAL ELIMINAR USUARIO ==================== -->

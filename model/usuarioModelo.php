@@ -98,6 +98,21 @@ class ModeloUsuarios{
         return $resultado;
     }
 
+    // Metodo que carga los usuarios
+    static public function mdlListarCargoUsuario($tabla){
+
+        // Consulta SQL
+        $sql ="SELECT cargo_id, nombre_cargo FROM $tabla ORDER BY nombre_cargo";
+
+        // Asignar $stmt correctamente
+        $stmt=Conexion::conectar()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+
+
+
     
        
    // Metodo que edita la información del usuario.
@@ -144,4 +159,14 @@ public static function mdlEditarUsuarios($tabla, $datos){
     }
 }
 
+
+    /// Método para desactivar usuario (borrado lógico)
+
+
+
+
+
+
 }
+
+

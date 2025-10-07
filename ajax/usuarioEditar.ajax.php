@@ -37,5 +37,5 @@ if (isset($_POST["usuario_id"]) && isset($_POST["nombre_usuario"])) {
 
     // Llamar al controlador que maneja la edición
     ControladorUsuarios::ctrEditarUsuarios();
-    // 🚨 No se necesita otro echo, el controlador devuelve JSON y hace exit
+    // El controlador devuelve JSON y hace exit
 }

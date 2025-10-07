@@ -192,3 +192,29 @@ $("#formUsuarioEditar").on("submit", function(e){
     }
   });
 });
+
+
+// Configurar el modal cuando se hace clic en eliminar
+$(document).on("click", ".btnEliminarUsuario", function () {
+    var usuarioId = $(this).data("usuario_id");
+    var nombreUsuario = $(this).data("nombre");
+
+    console.log("ID a eliminar:", usuarioId);
+    
+    $("#usuarioIdEliminar").val(usuarioId);
+    $("#nombreUsuarioEliminar").text(nombreUsuario);
+});
+
+// Opcional: Mostrar loading al enviar
+$(document).ready(function() {
+    $('#modalEliminarUsuario form').on('submit', function() {
+        $('button[type="submit"]', this).html('<i class="fas fa-spinner fa-spin"></i> Procesando...').prop('disabled', true);
+    });
+    
+    // Limpiar modal cuando se cierre
+    $('#modalEliminarUsuario').on('hidden.bs.modal', function () {
+        $('#nombreUsuarioEliminar').text('');
+        $('#usuarioIdEliminar').val('');
+        $('button[type="submit"]', this).html('<i class="fas fa-user-slash"></i> Desactivar').prop('disabled', false);
+    });
+});
