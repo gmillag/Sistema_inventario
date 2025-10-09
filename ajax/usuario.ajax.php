@@ -1,13 +1,16 @@
 <?php
-// Configuración para JSON
-error_reporting(0);
-ini_set('display_errors', 0);
-header('Content-Type: application/json; charset=utf-8');
 
 // Incluir archivos necesarios
 require_once '../control/usuarioControlador.php';
 require_once '../model/usuarioModelo.php';
 require_once '../model/conexion.php';
+
+// Configuración para JSON
+error_reporting(0);
+ini_set('display_errors', 0);
+header('Content-Type: application/json; charset=utf-8');
+
+
 
 class AjaxUsuarios {
     
@@ -54,12 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Obtener la acción desde POST (SIEMPRE usar parámetro explícito)
+// Obtener la acción desde POST 
 $accion = isset($_POST['accion']) ? $_POST['accion'] : '';
 
-// Debug: Ver qué estamos recibiendo
-error_log("Acción recibida: " . $accion);
-error_log("Datos POST: " . print_r($_POST, true));
 
 // Procesar según la acción
 switch ($accion) {
@@ -85,11 +85,16 @@ switch ($accion) {
         // Llamar al controlador que maneja la edición completa
         ControladorUsuarios::ctrEditarUsuarios();
         break;
+
         
     case 'eliminar':
         // Llamar al controlador que maneja la desactivación
         ControladorUsuarios::ctrDesactivarUsuario();
         break;
+
+    case 'activar':
+        // Llamar al ontrolador que activa al usuario desactivado
+        ControladorUsuarios::ctrActivarUsuario();
         
     default:
         // Si no hay acción específica, determinar por contexto

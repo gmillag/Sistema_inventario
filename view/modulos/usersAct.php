@@ -86,7 +86,7 @@
                                           data-usuario_id='".$valores['usuario_id']."' 
                                           data-nombre='".$valores['nombre_usuario']."' 
                                           data-toggle='modal' data-target='#modalEliminarUsuario'>
-                                      Eliminar
+                                      Desactivar
                                   </button>
                               </td>
                           </tr>
@@ -281,8 +281,6 @@
   </div>
 </div>
 
-
-
 <!-- ==================== MODAL EDITAR USUARIO ====================-->
 <div class="modal fade" id="modalEditarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalUsuarioLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -468,11 +466,3 @@
         </div>
     </div>
 </div>
-
-<?php
-// Procesar la desactivación del usuario
-if (isset($_POST['usuario_id'])) {
-    $desactivarUsuario = new ControladorUsuarios();
-    $desactivarUsuario->ctrDesactivarUsuario();
-}
-?>

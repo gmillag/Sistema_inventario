@@ -45,24 +45,41 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
+
 <!-- ./wrapper -->
 <div class="wrapper">
 <?php
 include 'modulos/header.php';
 include 'modulos/menu.php';
 
-if(isset($_GET ["ruta"])){
-  if($_GET["ruta"]=="users"){
-    include "modulos/".$_GET["ruta"].".php";
-  }
-}else{
+if(isset($_GET["ruta"])){
+    
+    switch($_GET["ruta"]){
+        case "usersAct":
+            include "modulos/usersAct.php";
+            break;
+        case "usersDes":
+            include "modulos/usersDes.php";
+            break;
+        case "inicio":
+            include "modulos/inicio/cajas.php";
+            break;
+        default:
+            // En lugar de 404, redirige al inicio
+            include 'modulos/inicio/cajas.php';
+            break;
+    }
+    
+} else {
     include 'modulos/inicio/cajas.php';
 }
 
 include 'modulos/footer.php';
 ?>
 </div>
+
 <!-- ./wrapper -->
+
 
 <!-- Bootstrap 4 -->
 <script src="view/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

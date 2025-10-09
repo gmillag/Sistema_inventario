@@ -110,10 +110,7 @@ class ModeloUsuarios{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
-
-
-
-    
+   
        
    // Metodo que edita la información del usuario.
 public static function mdlEditarUsuarios($tabla, $datos){
@@ -182,6 +179,41 @@ static public function mdlDesactivarUsuario($tabla, $usuario_id){
         $stmt = null;
     }
 }
+
+    /* ===================================================================================================================
+       USUARIO ACTIVAR
+    ======================================================================================================================= */
+
+        /// Método para activar usuario
+    static public function mdlActivarUsuario($tabla, $usuario_id){
+        
+        try {
+            $sql = "UPDATE $tabla SET estado_usuario = 1 WHERE usuario_id = :usuario_id";
+            
+            $stmt = Conexion::conectar()->prepare($sql);
+            $stmt->bindParam(":usuario_id", $usuario_id, PDO::PARAM_STR);
+            
+            if($stmt->execute()){
+                return "ok";
+            } else {
+                $error = $stmt->errorInfo();
+                return "Error: " . $error[2];
+            }
+            
+        } catch (PDOException $e) {
+            return "Excepción: " . $e->getMessage();
+        } finally {
+            $stmt = null;
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 

@@ -169,7 +169,7 @@ $("#formUsuarioEditar").on("submit", function(e){
         });
         $("#modalEditarUsuario").modal("hide");
 
-        // SOLUCIÓN: Recargar la página completa
+        // Recargar la página completa
         setTimeout(function() {
           location.reload();
         }, 1500);
@@ -243,6 +243,85 @@ function desactivarUsuario(usuarioId) {
                 Swal.fire({
                     icon: "success",
                     title: "¡Desactivado!",
+                    text: respuesta.message,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                
+                setTimeout(function() {
+                    location.reload();
+                }, 1500);
+                
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: respuesta.message || "Error desconocido"
+                });
+            }
+        },
+        error: function(xhr, status, error){
+            console.error("Error AJAX:", error);
+            console.log("Respuesta completa:", xhr.responseText);
+            
+            Swal.fire({
+                icon: "error",
+                title: "Error de conexión",
+                text: "No se pudo comunicar con el servidor."
+            });
+        }
+    });
+}
+
+// ==================== ACTIVAR USUARIO ====================
+
+// Variables globales para el modal de activar
+let usuarioIdActivar = null;
+
+// Abrir modal de activar
+$(".tablas").on("click", ".btnActivarUsuario", function(){
+    usuarioIdActivar = $(this).data('usuario_id');
+    const nombreUsuario = $(this).data('nombre');
+    
+    $("#nombreUsuarioActivar").text(nombreUsuario);
+    $("#usuarioIdActivar").val(usuarioIdActivar);
+});
+
+// Confirmar activación
+$("#btnConfirmarActivar").on("click", function(){
+    if (usuarioIdActivar) {
+        activarUsuario(usuarioIdActivar);
+    }
+});
+
+// Función para activar usuario
+function activarUsuario(usuarioId) {
+    const datos = new FormData();
+    datos.append("accion", "activar"); // Cambiado de "eliminar" a "activar"
+    datos.append("usuario_id", usuarioId);
+
+    console.log("Enviando datos de activación:", {
+        accion: "activar",
+        usuario_id: usuarioId
+    });
+
+    $.ajax({
+        url: "ajax/usuario.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function(respuesta){
+            console.log("Respuesta activar:", respuesta);
+            
+            if (respuesta.status === "success") {
+                $("#modalActivarUsuario").modal("hide");
+                
+                Swal.fire({
+                    icon: "success",
+                    title: "¡Activado!",
                     text: respuesta.message,
                     timer: 2000,
                     showConfirmButton: false

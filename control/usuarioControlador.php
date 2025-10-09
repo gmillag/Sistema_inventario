@@ -199,6 +199,80 @@ public static function ctrDesactivarUsuario()
     }
 }
 
+
+    /* ===================================================================================================================
+       USUARIO DESACTIVADO
+    ======================================================================================================================= */
+
+
+
+    /* ============================================================
+       MOSTRAR TODOS LOS USUARIOS DESACTIVADOS  CON JOINs
+    ============================================================ */
+    public static function ctrMostrarUsuariosDesConNombres()
+    {
+        $query = "
+            SELECT 
+                u.*,
+                CONCAT(u.nombre_usuario,' ',u.apellidop_usuario,' ',u.apellidom_usuario) AS nombre_usuario,
+                cu.nombre_cargo,
+                d.nombre_dependencia,
+                s.nombre_sede
+            FROM usuario u
+            JOIN cargo_usuario cu ON u.cargo_id = cu.cargo_id
+            JOIN dependencia d ON u.dependencia_id = d.dependencia_id
+            JOIN sede s ON d.sede_id = s.sede_id
+            where u.estado_usuario =0
+            ORDER BY nombre_usuario
+        ";
+
+        $stmt = Conexion::conectar()->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+/* ============================================================
+   ACTIVAR USUARIO
+============================================================ */
+public static function ctrActivarUsuario()
+{
+    if (isset($_POST['usuario_id']) && $_POST['accion'] === 'activar') {
+        $tabla = "usuario";
+        $usuario_id = $_POST['usuario_id'];
+        
+        try {
+            $respuesta = ModeloUsuarios::mdlActivarUsuario($tabla, $usuario_id);
+            
+            if ($respuesta === "ok") {
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Usuario activado correctamente"
+                ]);
+            } else {
+                echo json_encode([
+                    "status" => "error", 
+                    "message" => "Error al activar el usuario: " . $respuesta
+                ]);
+            }
+        } catch (PDOException $e) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Error en la base de datos: " . $e->getMessage()
+            ]);
+        }
+        exit;
+    }
+}
+
+
+
+
+
+
+
+
+
+
 }
 
 
