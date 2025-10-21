@@ -49,20 +49,23 @@
 <!-- ./wrapper -->
 <div class="wrapper">
 <?php
-include 'modulos/header.php';
-include 'modulos/menu.php';
+include 'modulos/plantilla/header.php';
+include 'modulos/plantilla/menu.php';
 
 if(isset($_GET["ruta"])){
     
     switch($_GET["ruta"]){
         case "usersAct":
-            include "modulos/usersAct.php";
+            include "modulos/menu/usersAct.php";
             break;
         case "usersDes":
-            include "modulos/usersDes.php";
+            include "modulos/menu/usersDes.php";
             break;
         case "inicio":
             include "modulos/inicio/cajas.php";
+            break;
+        case "cpu":
+            include "modulos/menu/cpu.php";
             break;
         default:
             // En lugar de 404, redirige al inicio
@@ -74,7 +77,7 @@ if(isset($_GET["ruta"])){
     include 'modulos/inicio/cajas.php';
 }
 
-include 'modulos/footer.php';
+include 'modulos/plantilla/footer.php';
 ?>
 </div>
 
